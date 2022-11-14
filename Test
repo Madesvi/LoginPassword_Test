@@ -1,0 +1,46 @@
+package LoginPass;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class LoginPass {
+	WebDriver driver;
+
+	public void lauchbrowser() {
+		System.setProperty("webdriver.Firefox.Driver", "D:\\QA_Testing\\Selenium\\Drivers_Browser\\geckodriver-v0.32.0-win32\\geckodriver.exe");
+		driver = new FirefoxDriver();
+		driver.get("https://www.facebook.com");	
+		}
+	
+	public void loginPass() throws InterruptedException {
+		Thread.sleep(500);
+		driver.findElement(By.id("email")).sendKeys("test@test.com");
+		Thread.sleep(2000);
+		WebElement password = driver.findElement(By.id("pass"));
+		password.clear();
+		password.sendKeys("your_password");
+		Thread.sleep(2000);
+		WebElement LoginButton = driver.findElement(By.name("login"));
+		LoginButton.click();
+		String u=driver.getCurrentUrl();
+		
+		//Check point
+		if(u.equals("https://www.facebook.com/login/?privacy_mutation_token=eyJ0eXBlIjowLCJjcmVhdGlvbl90aW1lIjoxNjY4NDQyODc4LCJjYWxsc2l0ZV9pZCI6MzgxMjI5MDc5NTc1OTQ2fQ%3D%3D")) {
+			System.out.println("Test Case Passed");
+		}
+		else
+		{
+			System.out.println("Test Case Failed");
+		}
+		}
+	
+	
+	public static void main(String[] args) throws InterruptedException {
+		LoginPass obj = new LoginPass();
+		obj.lauchbrowser();
+		obj.loginPass();
+		}
+
+}
